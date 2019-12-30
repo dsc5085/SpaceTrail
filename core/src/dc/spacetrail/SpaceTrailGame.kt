@@ -5,10 +5,12 @@ import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
+import dclib.system.ScreenManager
 
 class SpaceTrailGame : ApplicationAdapter() {
-    internal lateinit var batch: SpriteBatch
-    internal lateinit var img: Texture
+    private val screenManager = ScreenManager()
+    private lateinit var batch: SpriteBatch
+    private lateinit var img: Texture
 
     override fun create() {
         batch = SpriteBatch()

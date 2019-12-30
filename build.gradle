@@ -16,7 +16,6 @@ buildscript {
 }
 
 allprojects {
-
     version = '1.0'
     ext {
         appName = "space-trail"
@@ -40,10 +39,12 @@ allprojects {
 project(":desktop") {
     apply plugin: "kotlin"
 
+    java {
+        disableAutoTargetJvm()
+    }
 
     dependencies {
         implementation project(":core")
-        compile project(':dclib-core')
         api "com.badlogicgames.gdx:gdx-backend-lwjgl:$gdxVersion"
         api "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
         api "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-desktop"
@@ -58,9 +59,12 @@ project(":desktop") {
 project(":core") {
     apply plugin: "kotlin"
 
+    java {
+        disableAutoTargetJvm()
+    }
 
     dependencies {
-        compile project(':dclib-core')
+        api project(':dclib-core')
         api "com.badlogicgames.gdx:gdx:$gdxVersion"
         api "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
         api "com.badlogicgames.gdx:gdx-ai:$aiVersion"
