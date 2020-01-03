@@ -2,6 +2,8 @@ package dc.spacetrail.gameplay
 
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import dc.spacetrail.gameplay.situations.IntroSituation
+import dc.spacetrail.gameplay.situations.SupplyContainerSituation
+import dc.spacetrail.ui.UiUtils
 import dclib.system.Advancer
 import dclib.system.Screen
 import dclib.system.Updater
@@ -28,8 +30,9 @@ class GameScreen(private val uiPack: UiPack) : Screen() {
     }
 
     private fun createGameState(): GameState {
-        val situation = IntroSituation()
-        return GameState(situation, listOf())
+        val state = GameState(IntroSituation(), listOf())
+        state.situation = SupplyContainerSituation(state.crew)
+        return state
     }
 
     private fun createMainTable(): Table {
@@ -37,6 +40,13 @@ class GameScreen(private val uiPack: UiPack) : Screen() {
         mainTable.setFillParent(true)
         val mainLabel = uiPack.label(state.situation.description, FontSize.SMALL)
         mainTable.add(mainLabel).center().row()
+        for (option in state.situation.options) {
+            val optionLabel = uiPack.label(option.description, FontSize.SMALL)
+            UiUtils.makeClickable(optionLabel, {
+                val description = option.solve()
+            })
+            mainTable.add(optionLabel).center().row()
+        }
         return mainTable
     }
 }
